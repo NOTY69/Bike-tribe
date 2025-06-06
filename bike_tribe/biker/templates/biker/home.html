@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login Interface</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+  <style>
+  :root {
+    --primary: #008080;          /* Teal */
+    --accent: #4db6ac;           /* Light Teal */
+    --bg-light: #e0f7fa;         /* Light Cyan */
+    --bg-dark: #004d40;          /* Dark Teal */
+    --bg-card: #f0fdfc;          /* Off-white teal tint */
+    --text-dark: #1a1a1a;
+    --text-muted: #4f4f4f;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    padding-bottom: 100px;
+  }
+
+  .container {
+    padding: 20px;
+  }
+
+  .profile-section {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+
+  .profile-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    width: 60px;
+    height: 60px;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: var(--bg-card);
+    box-shadow: var(--shadow);
+    color: var(--text-dark);
+    text-decoration: none;
+  }
+
+  main {
+    padding-top: 70px;
+    padding-bottom: 120px;
+  }
+
+  #travel-post {
+    background-color: var(--bg-card);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 700px;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeIn 0.6s ease;
+  }
+
+  #travel-post:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  #travel-post div {
+    margin-bottom: 8px;
+    font-size: 15px;
+    color: var(--text-dark);
+    font-weight: 500;
+  }
+
+  #entriesContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+
+  .entry-box {
+    border-radius: 12px;
+    padding: 20px;
+    background-color: var(--bg-card);
+    width: 300px;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .entry-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  .entry-field {
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    background: var(--bg-dark);
+    padding: 10px 0;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+
+  .nav-item a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+  }
+
+  .nav-item i {
+    font-size: 24px;
+  }
+
+  input {
+    border: 2px solid #f0fdfc;
+    outline: none; /* Removes default blue outline */
+    background-color: #f0fdfc;
+    padding: 8px;
+    border-radius: 6px;
+  }
+
+  /* Buttons Container */
+  .button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid #ccc;
+    justify-content: flex-start;
+  }
+
+  .btn {
+    flex: 1 1 140px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    color: white;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .btn-join {
+    background-color: var(--accent);
+  }
+
+  .btn-join:hover {
+    background-color: #3ca39b;
+    transform: scale(1.05);
+  }
+
+  .btn-note {
+    background-color: var(--primary);
+  }
+
+  .btn-note:hover {
+    background-color: #006666;
+    transform: scale(1.05);
+  }
+
+  .btn-calc {
+    background-color: #ff7f50; /* Coral */
+  }
+
+  .btn-calc:hover {
+    background-color: #e76f47;
+    transform: scale(1.05);
+  }
+
+  .btn-view {
+    background-color: #6a5acd; /* Slate Blue */
+  }
+
+  .btn-view:hover {
+    background-color: #5741a8;
+    transform: scale(1.05);
+  }
+
+  /* Responsive: stack buttons vertically on small screens */
+  @media (max-width: 480px) {
+    .button-group {
+      flex-direction: column;
+    }
+
+    .btn {
+      flex: 1 1 100%;
+    }
+  }
+  </style>
+
+</head>
+<body>
+
+    <main>
+      {% for travel in travels %}
+      <div id="travel-post">
+        <div> host: {{ travel.host }}</div>
+        <div>🚩 Starting Point: {{ travel.starting_point }}</div>
+        <div>🏁 Ending Point: {{ travel.ending_point }}</div>
+        <div>📅 Date Range: {{ travel.date_range }}</div>
+        <div>⏰ Start Time: {{ travel.start.time }}</div>
+        <div>📍 Kilometers: {{ travel.km }}</div>
+        <div>👥 Number of Persons: {{ travel.number_of_persons }}</div>
+        <div>{{travel.joined_members}}:{{travel.number_of_persons}}</div>
+
+        <form method="POST" action="http://127.0.0.1:8000/login/join_travel/">
+          {% csrf_token %}
+          <input type="hidden" name="id" value="{{travel.id}}" />
+          {% if travel.joined_members == travel.number_of_persons %}
+            <button id="join_{{travel.id}}" class="btn btn-join" type="submit" style="display:none;">
+            <i class="fas fa-sign-in-alt"></i> Join
+            </button>
+        {% else %}
+            <button id="join_{{travel.id}}" class="btn btn-join" type="submit">
+            <i class="fas fa-sign-in-alt"></i> Join
+          </button>
+        {% endif %}
+        </form>
+
+        <div class="button-group">
+          <a href="{% url 'message' travel_id=travel.id %}" class="btn btn-note">
+            <i class="fas fa-sticky-note"></i> Add Note
+          </a>
+          <a href="{% url 'bike_info' distance=travel.km %}" class="btn btn-calc">
+            <i class="fas fa-gas-pump"></i> Petrol Expense Calculator
+          </a>
+          <a class="btn btn-view" href="{% url 'view_notes' notes_id=travel.id %}">
+            <i class="fas fa-eye"></i> View Notes
+          </a>
+        </div>
+
+      </div>
+      {% endfor %}
+
+      <div id="entriesContainer"></div>
+    </main>
+
+    <div class="bottom-nav">
+      <div class="nav-item">
+      <a href="{% url 'my_t' %}">
+          <i class="fas fa-bicycle"></i>
+          <span>My trips</span>
+      </a>
+      </div>
+      <div class="nav-item">
+        <a href="{% url 'create' %}">
+          <i class="fas fa-plus-circle"></i>
+          <span>Create</span>
+        </a>
+      </div>
+      <div class="nav-item">
+        <a href="{% url 'leaderboard' %}">
+          <i class="fas fa-trophy"></i>
+          <span>Leaderboard</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Hide Join buttons for trips user already joined
+    {% for joined in user_joined_trips %}
+      var joinBtn = document.getElementById("join_" + {{ joined.travelplan.id }});
+      if(joinBtn) joinBtn.style.display = "none";
+    {% endfor %}
+  </script>
+
+</body>
+</html>

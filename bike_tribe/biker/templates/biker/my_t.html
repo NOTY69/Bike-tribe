@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Travel Plans</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(120deg, #74ebd5, #acb6e5);
+      overflow: hidden;
+      color: #fff;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 60px auto;
+      padding: 30px;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 15px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      z-index: 2;
+      position: relative;
+    }
+
+    h1 {
+      margin-bottom: 25px;
+    }
+
+    .plans {
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .plan {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s ease;
+    }
+
+    .plan:hover {
+      transform: translateY(-5px);
+    }
+
+    .plan-details {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .plan-details input {
+      background-color: rgba(255, 255, 255, 0.2);
+      border: none;
+      padding: 8px 10px;
+      border-radius: 6px;
+      color: #fff;
+      font-size: 14px;
+      width: 250px;
+    }
+
+    .join-btn {
+      padding: 10px 15px;
+      background-color: #28a745;
+      border: none;
+      color: white;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .join-btn:hover {
+      background-color: #1e7e34;
+    }
+
+    .join-btn.disabled {
+      background-color: #6c757d;
+      cursor: not-allowed;
+    }
+
+    .bg-icon {
+      position: absolute;
+      font-size: 32px;
+      opacity: 0.2;
+      animation: float 20s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+      }
+      100% {
+        transform: translateY(-150vh) rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>🌍 My Travel Plans</h1>
+
+  <div class="plans">
+    {% for travel in travels %}
+    <form class="plan" method="POST" action="http://127.0.0.1:8000/login/my_travel/">
+      {% csrf_token %}
+      <div class="plan-details">
+        <input type="text" name="s-e" value="{{ travel.starting_point }} ➝ {{ travel.ending_point }}" readonly />
+        <input type="text" name="km" value="{{ travel.km }} km" readonly />
+        <input type="hidden" name="id" value="{{ travel.id }}" />
+      </div>
+    </form>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Background Animation -->
+<script>
+  const icons = ['✈️', '🏍️', '🚗', '🚲', '⛺', '🗻', '🏕️', '🏖️', '🌍', '🌄'];
+  for (let i = 0; i < 30; i++) {
+    const icon = document.createElement('div');
+    icon.className = 'bg-icon';
+    icon.style.left = Math.random() * 100 + 'vw';
+    icon.style.top = Math.random() * 100 + 'vh';
+    icon.style.animationDuration = 10 + Math.random() * 20 + 's';
+    icon.innerText = icons[Math.floor(Math.random() * icons.length)];
+    document.body.appendChild(icon);
+  }
+</script>
+
+</body>
+</html>

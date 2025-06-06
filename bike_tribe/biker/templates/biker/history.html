@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>History</title>
+    <style>
+        body {
+            background-color: #a8e6cf;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #2c3e50;
+            padding-bottom: 5px;
+        }
+        #historyContainer {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .trip-box {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            width: calc(50% - 20px);
+            box-sizing: border-box;
+            box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+        }
+        .trip-field {
+            margin-bottom: 6px;
+            font-size: 14px;
+            color: #333;
+        }
+        .no-trips {
+            text-align: center;
+            font-style: italic;
+            color: #666;
+            width: 100%;
+        }
+        .trip-type {
+            font-weight: bold;
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <h1>Completed Trips History</h1>
+
+    <div id="historyContainer">
+        {% if all_trips %}
+            {% for trip in all_trips %}
+                <div class="trip-box">
+                    {% if trip.host == request.user.username %}
+                        <p class="trip-type">Hosted Trip</p>
+                    {% else %}
+                        <p class="trip-type">Joined Trip</p>
+                    {% endif %}
+                    <p class="trip-field"><strong>Starting Point:</strong> {{ trip.starting_point }}</p>
+                    <p class="trip-field"><strong>Ending Point:</strong> {{ trip.ending_point }}</p>
+                    <p class="trip-field"><strong>Kilometers:</strong> {{ trip.km }}</p>
+                    <p class="trip-field"><strong>Date Range:</strong> {{ trip.date_range }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-trips">No trips found.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Create Travel Plan</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #a8e6cf;
+      background-image: url('background.jpg');
+      background-size: cover;
+      background-position: center;
+      padding: 20px;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(168, 230, 207, 0.3);
+      z-index: 0;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 600px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(8px);
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      color: #2c3e50;
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 32px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    label {
+      font-weight: 600;
+      margin-top: 15px;
+      margin-bottom: 5px;
+      display: block;
+      color: #34495e;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 14px 18px;
+      border: 2px solid rgba(44, 62, 80, 0.1);
+      border-radius: 12px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    input:focus, select:focus {
+      border-color: #a8e6cf;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(168, 230, 207, 0.2);
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 14px;
+      background: #a8e6cf;
+      color: #2c3e50;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 20px;
+    }
+
+    button[type="submit"]:hover {
+      background: #8ed1fc;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(142, 209, 252, 0.3);
+    }
+
+    button[type="submit"]:active {
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Create Travel Plan</h1>
+    <form id="travelForm" class="form-container" method="POST" action="http://127.0.0.1:8000/login/create/">
+      {% csrf_token %}
+      <label for="startingPoint"><i class="fas fa-map-marker-alt"></i>host</label>
+      <input type="text" id="startingPoint" name="host" value="{{user.username}}"  required />
+      <label for="startingPoint"><i class="fas fa-map-marker-alt"></i> Starting Point:</label>
+      <input type="text" id="startingPoint" name="startingPoint" required />
+
+      <label for="endingPoint"><i class="fas fa-map-marker-alt"></i> Ending Point:</label>
+      <input type="text" id="endingPoint" name="endingPoint" required />
+
+      <label for="dateRange"><i class="fas fa-calendar-alt"></i> Date Range:</label>
+      <input type="text" id="dateRange" name="dateRange" readonly required />
+
+      <label for="timeRange"><i class="fas fa-clock"></i> Start Time:</label>
+      <input type="text" id="timeRange" name="starttime"  required />
+
+      <label for="kilometers"><i class="fas fa-road"></i> Kilometers:</label>
+      <input type="number" id="kilometers" name="kilometers" min="0" required />
+
+      <label for="numberOfPersons"><i class="fas fa-users"></i> Number of Persons:</label>
+      <input type="number" id="numberOfPersons" name="numberOfPersons" min="1" required />
+
+      <button type="submit">Create</button>
+    </form>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script>
+    const dateRangePicker = flatpickr("#dateRange", {
+      mode: "range",
+      dateFormat: "Y-m-d",
+      minDate: "today",
+      altInput: true,
+      altFormat: "F j, Y",
+      disableMobile: "true",
+      onChange: function () {
+        timeRangePicker.clear();
+      }
+    });
+
+    const timeRangePicker = flatpickr("#timeRange", {
+      enableTime: true,
+      noCalendar: true,
+      dateFormat: "h:i K",
+      time_24hr: false,
+      altInput: true,
+      altFormat: "h:i K",
+      disableMobile: "true",
+      mode: "range"
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Biker Travel Plan Notes</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      overflow: hidden;
+      color: white;
+    }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    form {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    input, textarea {
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      outline: none;
+    }
+    input[type="text"] {
+      width: 200px;
+    }
+    textarea {
+      width: 300px;
+      height: 60px;
+    }
+    button {
+      padding: 10px 20px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #218838;
+    }
+    .notes {
+      margin-top: 20px;
+    }
+    .note {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      backdrop-filter: blur(5px);
+    }
+    .note strong {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="bgCanvas"></canvas>
+
+<div class="container">
+  <h1>🏍️ Biker Travel Notes</h1>
+  <div class="notes">
+    {% for note in notes %}
+      <div class="note">
+        <strong>{{ note.current_user.username }}</strong>
+        <span>{{ note.add_notes }}</span>
+      </div>
+    {% empty %}
+      <p>No notes yet.</p>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+  // Floating particles animation
+  const canvas = document.getElementById('bgCanvas');
+  const ctx = canvas.getContext('2d');
+  let w, h;
+  const particles = [];
+
+  function resizeCanvas() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  class Particle {
+    constructor() {
+      this.x = Math.random() * w;
+      this.y = Math.random() * h;
+      this.radius = Math.random() * 2;
+      this.speedX = Math.random() * 1 - 0.5;
+      this.speedY = Math.random() * 1 - 0.5;
+    }
+
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+      ctx.fill();
+    }
+
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+
+      if (this.x < 0 || this.x > w) this.speedX *= -1;
+      if (this.y < 0 || this.y > h) this.speedY *= -1;
+    }
+  }
+
+  for (let i = 0; i < 100; i++) {
+    particles.push(new Particle());
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, w, h);
+    for (let p of particles) {
+      p.update();
+      p.draw();
+    }
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+</script>
+</body>
+</html>

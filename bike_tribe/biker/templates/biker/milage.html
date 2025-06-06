@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mileage</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #a8edea, #fed6e3);
+            font-family: 'Inter', sans-serif;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffffee;
+            padding: 30px 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-out;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        h1 {
+            font-size: 28px;
+            text-align: center;
+            margin-bottom: 25px;
+            color: #2d3436;
+        }
+
+        .info-line {
+            font-size: 18px;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f1f2f6;
+            border-left: 5px solid #6c5ce7;
+            border-radius: 8px;
+            transition: transform 0.2s ease;
+        }
+
+        .info-line:hover {
+            transform: translateX(5px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mileage Estimator</h1>
+
+        <div class="info-line" id="ccInfo"></div>
+        <div class="info-line" id="mileageInfo"></div>
+        <div class="info-line" id="litreRequiredInfo"></div>
+        <div class="info-line" id="costInfo"></div>
+    </div>
+
+    <script>
+        const mileageData = {
+            50: 55,
+            100: 53,
+            125: 38,
+            150: 48,
+            155: 45.5,
+            160: 50,
+            180: 43,
+            200: 32,
+            250: 29,
+            300: 30,
+            310: 32,
+            390: 26,
+            400: 26,
+            450: 25,
+            600: 18,
+            650: 20,
+            700: 16,
+            800: 16,
+            900: 15,
+            1000: 12,
+            1200: 12,
+            1290: 12,
+            1300: 14,
+            1390: 12
+        };
+
+        const pricePerLiter = 103;
+
+        const cc = parseInt("{{ bike_info.cc }}");
+        const km = parseFloat("{{ bike_info.km }}");
+
+        const user_milage = mileageData[cc];
+        const litre_required = km / user_milage;
+        const cost_of_petrol = litre_required * pricePerLiter;
+
+        document.getElementById("ccInfo").textContent = `Engine Capacity: ${cc} CC`;
+        document.getElementById("mileageInfo").textContent = `Estimated Mileage: ${user_milage} km/l`;
+        document.getElementById("litreRequiredInfo").textContent = `Petrol Required: ${litre_required.toFixed(2)} L`;
+        document.getElementById("costInfo").textContent = `Estimated Fuel Cost: ₹${cost_of_petrol.toFixed(2)}`;
+    </script>
+</body>
+</html>

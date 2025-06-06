@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Travel Plan Chat</title>
+  <style>
+    /* Ride Note Form Styling */
+    #noteForm {
+      padding: 16px 20px;
+      background-color: #ffffff;
+      border-bottom: 2px solid #ccc;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #noteForm label {
+      font-weight: 600;
+      font-size: 16px;
+      margin-bottom: 8px;
+      color: #2c3e50;
+    }
+
+    #noteInput {
+      padding: 10px 14px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      outline: none;
+      width: 100%;
+      margin-bottom: 12px;
+      transition: border-color 0.3s;
+    }
+
+    #noteInput:focus {
+      border-color: #3498db;
+      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+    }
+
+    #noteForm button {
+      align-self: flex-start;
+      padding: 10px 20px;
+      background: linear-gradient(to right, #3498db, #2980b9);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 500;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    #noteForm button:hover {
+      background: linear-gradient(to right, #2980b9, #2471a3);
+      transform: scale(1.02);
+    }
+
+    #noteForm button:active {
+      transform: scale(0.98);
+    }
+
+    /* Chat Container Styling */
+    .chat-container {
+      max-width: 700px;
+      margin: 30px auto;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      border-radius: 12px;
+      overflow: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .message-area {
+      padding: 20px;
+      min-height: 300px;
+      background-color: #f2f6fa;
+      overflow-y: auto;
+      max-height: 500px;
+    }
+
+    .input-area {
+      padding: 16px;
+      background-color: #fff;
+      border-top: 1px solid #ccc;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="chat-container">
+
+    <!-- Note Submission Form -->
+    <form id="noteForm"method="POST" action="{% url 'message' travel_id=travel_id %}">
+      {% csrf_token %}
+      <label for="noteInput">📝 Add a Ride Note</label>
+      <input type="text" id="noteInput"  name="note"  placeholder="Write something helpful or fun for the group..." />
+      <button type="submit">Post Note</button>
+    </form>
+
+    <!-- Chat Area -->
+    <div class="message-area" id="messageArea">
+      <!-- Chat messages will appear here -->
+    </div>
+
+    <div class="input-area">
+      <!-- Chat input and send button go here -->
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        /* Shared styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #a8e6cf url('background.jpg') center/cover no-repeat;
+            padding: 20px;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(168, 230, 207, 0.3);
+            z-index: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(8px);
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 32px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid rgba(44, 62, 80, 0.1);
+            border-radius: 12px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: #a8e6cf;
+            color: #2c3e50;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background: #8ed1fc;
+        }
+
+        .switch-form {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 14px;
+        }
+
+        .switch-form a {
+            color: #a8e6cf;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .switch-form a:hover {
+            color: #8ed1fc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Login</h1>
+        <form action="http://127.0.0.1:8000/login/" method="POST">
+            {% csrf_token %}
+            <div class="input-group">
+                <input name="username" type="text" placeholder="username" required>
+            </div>
+            <div class="input-group">
+                <input type="password" name="password" placeholder="Password" required>
+            </div>
+            <button type="submit" class="submit-btn">Login</button>
+        </form>
+        <p class="switch-form">Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+    </div>
+</body>
+</html>
