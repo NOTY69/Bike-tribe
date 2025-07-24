@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
-const { Client } = require('pg');
+const client = require('./backend/pgClient').default;
 const bcrypt = require('bcrypt');
 
 const app = express();
@@ -12,24 +12,6 @@ const PORT = process.env.PORT || 3001;
 // Middleware
 app.use(cors());
 app.use(express.json());
-
-// Database connection
-const connectionString = process.env.SUPABASE_DB_URL;
-let client;
-
-if (connectionString) {
-  client = new Client({
-    connectionString,
-  });
-
-  client.connect()
-    .then(() => {
-      console.log('Connected to PostgreSQL database!');
-    })
-    .catch((err) => {
-      console.error('Connection error:', err.message);
-    });
-}
 
 // Routes
 app.get('/', (req, res) => {
