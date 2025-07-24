@@ -1,0 +1,9 @@
+Use the following SEARCH/REPLACE blocks to update supabaseClient.ts:
+
+1.
+<<<<<<< SEARCH
+const supabaseUrl = 'https://uipoewrmjtrkflswyirs.supabase.co'
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVpcG9ld3JtanRya2Zsc3d5aXJzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMxNzk3NzcsImV4cCI6MjA2ODc1NTc3N30.nwjEMP2Ip3bhUj1cXdxUhxuV2d-U7xsHt8w74hCKiA8'
+=======
+const supabaseUrl = 'https://your-project-id.supabase.co'
+const supabaseAnonKey = 'your-anon-key'
